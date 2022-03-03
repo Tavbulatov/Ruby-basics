@@ -9,24 +9,24 @@ if a == b && b == c
   puts 'треугольник равнобедренный и равносторонний, но не прямоугольный'
 else
 
-if a > b && a >c
-  gipotenuza = a
-  storona_1 = b
-  storona_2 = c
-elsif b > a && b > c
-  gipotenuza = b
-  storona_1 = c
-  storona_2 = a
-elsif c > b && c > a
-  gipotenuza = c
-  storona_1 = b
-  storona_2 = a
-end
+  if a > b && a >c
+    hypotenuse = a
+    side_1 = b
+    side_2 = c
+  elsif b > a && b > c
+    hypotenuse = b
+    side_1 = c
+    side_2 = a
+  elsif c > b && c > a
+    hypotenuse = c
+    side_1 = b
+    side_2 = a
+  end
 
-if gipotenuza == (storona_1 + storona_2)
-  puts 'Треугольник прямоугольный'
-else
-(gipotenuza == storona_1) || (storona_1 == storona_2) || (storona_2 == gipotenuza)
-  puts 'Треугольник равнобедренный'
-end
+  if hypotenuse == (side_1 + side_2)
+    puts 'Треугольник прямоугольный'
+  else
+    (hypotenuse == side_1) || (side_1 == side_2) || (side_2 == hypotenuse)
+    puts 'Треугольник равнобедренный'
+  end
 end

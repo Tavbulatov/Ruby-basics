@@ -1,6 +1,6 @@
 vowels_alph = {}
-vowels = "a,e,i,o,u,y"
-("a".."z").each_with_index do |alph,index|
+vowels = "aeiouy"
+("a".."z").each.with_index(1) do |alph, index|
   if vowels.include?(alph)
     vowels_alph[alph] = index
   end

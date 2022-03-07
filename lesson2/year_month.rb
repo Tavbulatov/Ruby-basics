@@ -9,5 +9,5 @@ months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 months[1] = 29 if year % 4 == 0 && year % 100 != 0 || year % 400 == 0
 
 total = months.first(month - 1).sum
-total+=day
+total += day
 puts total

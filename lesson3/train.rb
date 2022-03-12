@@ -1,11 +1,10 @@
 class Train
+  attr_reader :type, :carriages, :name, :route, :stat_index, :speed
 
-  attr_reader :type_train, :total_vagons, :name, :route, :stat_index
-
-  def initialize(name, type_train, total_vagons)
+  def initialize(name, type, carriages)
     @name=name
-    @type_train = type_train
-    @total_vagons = total_vagons
+    @type = type
+    @carriages = carriages
     @speed = 0
     @stat_index = 0
   end
@@ -14,37 +13,25 @@ class Train
     @speed += 10
   end
 
-  def speed
-    puts "Текущая скорость:#{@speed}"
-  end
-
-  def stop  #Так же в ридере можно изменить скорость до 0 и поднять
-    if @speed > 0
-      @speed -= 10
-    puts "Текущая скорость #{@speed}"
-    elsif @speed.zero?
-      puts "Поезд остановлен"
-    end
-  end
-
-  def total_vagons
-    puts "Кол-во вагонов #{@total_vagons}"
+  def stop
+    @speed = 0
+    puts "Поезд остановлен"
   end
 
   def attach
     if @speed.zero?
-      @total_vagons += 1
-      puts "Вагон прицеплен.Кол-во вагонов: #{@total_vagons}"
+      @carriages += 1
+      puts "Вагон прицеплен.Кол-во вагонов: #{@carriages}"
     else
       puts "Водитель будь внимателен к работе.Поезд движется"
     end
   end
 
   def detach
-    if @speed.zero? && @total_vagons.positive?
-      @total_vagons -= 1
-      puts "Вагон отцеплен.Кол-во вагонов: #{@total_vagons}"
-    elsif @total_vagons.zero?
+    if @speed.zero? && @carriages.positive?
+      @carriages -= 1
+      puts "Вагон отцеплен.Кол-во вагонов: #{@carriages}"
+    elsif @carriages.zero?
       puts "Вагонов больше нет"
     else
       puts "Водитель будь внимателен к работе.Поезд движется"
@@ -58,11 +45,11 @@ class Train
 
   def go_next_station
     if current_station == @route.stations.last
-      puts 'Вы на последней станции, дальше нельзя поехать!!!'
+      puts 'Вы на крайней станции, дальше нельзя поехать!!!'
     else
-      @route.stations[@stat_index].send_train(self)
+      current_station.send_train(self)
       @stat_index += 1
-      @route.stations[@stat_index].add_train(self)
+      current_station.add_train(self)
     end
   end
 
@@ -70,27 +57,21 @@ class Train
     if current_station == @route.stations.first
       puts 'Вы на первой станции, назад нельзя поехать!!!'
     else
-      @route.stations[@stat_index].send_train(self)
+      current_station.send_train(self)
       @stat_index -= 1
-      @route.stations[@stat_index].add_train(self)
+      current_station.add_train(self)
     end
   end
 
   def current_station
-    @route.stations[@stat_index]#текушая станция
+    @route.stations[@stat_index]#текущая станция
   end
 
   def next_station
-     if @stat_index <= @route.stations.size
-       @stat_index += 1
-       @route.stations[@stat_index]
-     end
+    @route.stations[@stat_index + 1]
   end
 
   def previous_station
-    if @stat_index.positive?
-      @stat_index -= 1
-      @route.stations[@stat_index]
-    end
+    @route.stations[@stat_index - 1]
   end
 end

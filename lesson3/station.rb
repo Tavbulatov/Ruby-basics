@@ -1,26 +1,25 @@
 class Station
-
-  attr_reader :trains, :name
+  attr_reader :train, :name
 
   def initialize(name)
     @name = name
-    @trains = []
+    @train = []
   end
 
   def add_train(train)
-    @trains << train
+    @train << train
   end
 
   def list_trains
-    @trains.each {|trains| puts trains}
+    @train.each { |train| puts train }
   end
 
   def list_trains_type(type)
-    @trains.select {|trains|trains.type_train == type}
+    @train.select { |train|train.type == type }
   end
 
   def send_train(train)
-    @trains.delete(train) if @trains.include?(train)
+    @train.delete(train) if @train.include?(train)
     puts 'Поезд отправился'
   end
 end

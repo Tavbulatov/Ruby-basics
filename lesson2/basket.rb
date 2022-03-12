@@ -14,7 +14,7 @@ total = 0
 basket.each do |product, invoice|
   product_total = invoice[:price] * invoice[:quantity]
   total += product_total
-  puts "Накладная по выбранному товару:\tПродукт: #{product}\tЦена:#{invoice[:price]}\tКол-во:#{invoice[:quantity]} \tСумма: #{total} "
+  puts "Накладная по выбранному товару:\tПродукт: #{product}\tЦена:#{invoice[:price]}\tКол-во:#{invoice[:quantity]} \tСумма: #{product_total} "
 end
 
 puts "Сумма всего составляет: #{total}"

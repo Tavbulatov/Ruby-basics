@@ -58,6 +58,8 @@ class Interface
     end
   end
 
+  private
+
   def create_station
     loop do
       puts 'Введите название станции(для выхода нажмите Enter) :'

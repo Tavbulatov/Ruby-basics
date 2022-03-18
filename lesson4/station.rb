@@ -3,7 +3,7 @@ class Station
 
   def initialize(name)
     @name = name
-    @train = [ ]
+    @train = []
   end
 
   def add_train(train)

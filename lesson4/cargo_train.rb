@@ -1,9 +1,5 @@
 class CargoTrain < Train
-  def add_carriage(carriages)
-    if carriages.class == CarriageCargo
-      @carriages << carriages
-    else
-      puts "Вагон не соответствует типу поезда."
-    end
+  def add_carriage(carriage)
+    super(carriage) if carriage.class == CarriageCargo
   end
 end

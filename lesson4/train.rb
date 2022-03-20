@@ -42,6 +42,10 @@ class Train
     end
   end
 
+  def add_carriage(carriage)
+    @carriages << carriage
+  end
+
   def current_station
     @route.stations[@stat_index]#текущая станция
   end

@@ -27,9 +27,8 @@ class Interface
       text.each { |text| print text }
 
       print '      =========  Введите число :'
-      number = gets.to_i
 
-      case number
+      case gets.to_i
       when 1
         create_station
       when 2
@@ -100,37 +99,29 @@ class Interface
   end
 
   def add_station_route
-    puts "Выберите номер маршрута в которую хотите добавить станцию :"
-    routers_show
-    number = gets.strip.to_i
+    route = select_route("Выберите номер маршрута в которую хотите добавить станцию :")
     puts "Укажите станцию которую вы хотите добавить:"
     stations_show
-    station = gets.to_i
-    @routers[number - 1].add_station(@stations[station - 1])
+    route.add_station(@stations[gets.to_i- 1])
     puts "Станиция добавлена"
   end
 
   def delete_station_route
-    puts "Выберите номер маршрута из которой хотите удалить станцию :"
-    routers_show
-    number = gets.strip.to_i
+    route = select_route("Выберите номер маршрута из которой хотите удалить станцию :")
     puts "Укажите станцию которую вы хотите удалить(кроме первой и последней):"
-    @routers[number - 1].stations.each.with_index(1) { |station, index| puts "#{index} - #{station.name}"}
-    station = gets.to_i
-    @routers[number - 1].delete_station(station)
+    route.stations.each.with_index(1) { |station, index| puts "#{index} - #{station.name}" }
+    route.delete_station(gets.to_i)
     puts "Станиция удалена"
   end
 
   def go_back_train
-    puts "Выберите номер поезда который поедет Назад."
-    trains_show
-    @trains[gets.to_i - 1].go_back_station
+    train = select_train("Выберите номер поезда который поедет Назад.")
+    train.go_back_station
   end
 
   def go_next_train
-    puts "Выберите номер поезда который поедет Вперед."
-    trains_show
-    @trains[gets.to_i - 1].go_next_station
+    train = select_train("Выберите номер поезда который поедет Вперед.")
+    train.go_next_station
   end
 
   def go_station_train
@@ -144,57 +135,66 @@ class Interface
   end
 
   def give_train_route
-    puts 'Выберите поезд'
-    trains_show
-    number = gets.to_i
-    puts 'Выберите маршрут'
-    routers_show
-    route = gets.to_i
-    @trains[number - 1].route_reception(@routers[route - 1])
+    train = select_train('Выберите поезд')
+    route = select_route('Выберите маршрут')
+    train.route_reception(route)
   end
 
   def carriages_add
-    puts 'Выберите какому поезду прицепить вагоны'
-    trains_show
-    number = gets.to_i
+    train = select_train('Выберите какому поезду прицепить вагоны')
     puts 'Сколько вагонов прицепить?'
     total = gets.to_i
-    train_number = @trains[number - 1]
-    if train_number.class == CargoTrain
+  #   if train.class == CargoTrain
+  #     total.times do
+  #       train.add_carriage(CarriageCargo.new)
+  #     end
+  #   elsif train.class == PassengerTrain
+  #     total.times do
+  #       train.add_carriage(CarriagePass.new)
+  #     end
+  #   end
+  # end
+    case train.class #где я туплю? вагоны не добавляются
+    when PassengerTrain #и если в кайф покруче вариант тоже покажи
       total.times do
-        train_number.add_carriage(CarriageCargo.new)
+        train.add_carriage(CarriagePass.new)
       end
-    elsif train_number.class == PassengerTrain
+    when CargoTrain
       total.times do
-        train_number.add_carriage(CarriagePass.new)
+        train.add_carriage(CarriageCargo.new)
       end
     end
+  end
+
+  def select_train(message = 'Выберите какому поезду отцепить вагоны')
+    puts message
+    trains_show
+    @trains[gets.strip.to_i - 1]
+  end
+
+  def select_route(message = "Выберите номер маршрута из которой хотите удалить станцию :")
+    puts message
+    routers_show
+    @routers[gets.strip.to_i - 1]
   end
 
   def carriages_delete
-    puts 'Выберите какому поезду отцепить вагоны'
-    trains_show
-    number = gets.to_i
+    train = select_train
     puts 'Сколько вагонов отцепить?'
     total = gets.to_i
-    train_number = @trains[number - 1]
-    if train_number.class == CargoTrain
-      total.times do
-        train_number.carriages.shift
-      end
-    elsif train_number.class == PassengerTrain
-      total.times do
-        train_number.carriages.shift
-      end
+    total.times do
+      train.carriages.shift
     end
   end
 
-  def show_station_and_train
-    puts @stations
+  def show_station_and_train#тут пытался показать поезда на каждой станцию (в блоке вызывал еще итерацию )
+    @stations.each_with_index do |station, index|
+      puts "#{index}--#{station.name}"
+    end
   end
 
   def stations_show
-    @stations.each.with_index(1) { |station, index| puts "#{index} - #{station.name}"}
+    @stations.each.with_index(1) { |station, index| puts "#{index} - #{station.name}" }
   end
 
   def routers_show

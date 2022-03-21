@@ -2,7 +2,6 @@ class Interface
   attr_reader :stations, :trains, :routers
 
   def initialize
-    super
     @routers = []
     @stations = []
     @trains = []
@@ -144,25 +143,9 @@ class Interface
     train = select_train('Выберите какому поезду прицепить вагоны')
     puts 'Сколько вагонов прицепить?'
     total = gets.to_i
-  #   if train.class == CargoTrain
-  #     total.times do
-  #       train.add_carriage(CarriageCargo.new)
-  #     end
-  #   elsif train.class == PassengerTrain
-  #     total.times do
-  #       train.add_carriage(CarriagePass.new)
-  #     end
-  #   end
-  # end
-    case train.class #где я туплю? вагоны не добавляются
-    when PassengerTrain #и если в кайф покруче вариант тоже покажи
-      total.times do
-        train.add_carriage(CarriagePass.new)
-      end
-    when CargoTrain
-      total.times do
-        train.add_carriage(CarriageCargo.new)
-      end
+    cargo_klass = train.class == PassengerTrain ? CarriagePass : CarriageCargo
+    total.times do
+        train.add_carriage(cargo_klass.new)
     end
   end
 

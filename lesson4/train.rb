@@ -2,10 +2,10 @@ class Train
   attr_reader :carriages, :name, :route, :stat_index, :speed
 
   def initialize(name)
-    @name=name
+    @name = name
     @speed = 0
     @stat_index = 0
-    @carriages = [ ]
+    @carriages = []
   end
 
   def up_speed

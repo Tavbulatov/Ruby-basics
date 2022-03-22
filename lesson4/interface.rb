@@ -149,13 +149,13 @@ class Interface
     end
   end
 
-  def select_train(message = 'Выберите какому поезду отцепить вагоны')
+  def select_train(message = 'Выберите поезд')
     puts message
     trains_show
     @trains[gets.strip.to_i - 1]
   end
 
-  def select_route(message = "Выберите номер маршрута из которой хотите удалить станцию :")
+  def select_route(message = "Выберите маршрут")
     puts message
     routers_show
     @routers[gets.strip.to_i - 1]

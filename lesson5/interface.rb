@@ -56,7 +56,7 @@ class Interface
     end
   end
 
- # private
+  private
 
   def create_station
     loop do

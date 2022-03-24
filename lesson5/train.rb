@@ -2,19 +2,19 @@ class Train
   attr_reader :carriages, :number, :route, :stat_index, :speed
   include Manifacturer
   include InstanceCounter
-  @@train = {}
+  @@trains = {}
 
   def initialize(number)
     @number = number
     @speed = 0
     @stat_index = 0
     @carriages = []
-    @@train[number] = self
+    @@trains[number] = self
     register_instance
   end
 
   def self.find(number)
-    @@train[number]
+    @@trains[number]
   end
 
   def up_speed

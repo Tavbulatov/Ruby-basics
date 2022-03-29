@@ -170,7 +170,7 @@ class Interface
     end
   end
 
-  def show_station_and_train#тут пытался показать поезда на каждой станцию (в блоке вызывал еще итерацию )
+  def show_station_and_train
     @stations.each_with_index do |station, index|
       puts "#{index}--#{station.name}"
     end

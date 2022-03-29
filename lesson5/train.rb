@@ -2,10 +2,14 @@ class Train
   attr_reader :carriages, :number, :route, :stat_index, :speed
   include Manifacturer
   include InstanceCounter
+  include Validate
   @@trains = {}
+
+  CONST_NUMBER = /^[a-zа-я0-9]{3}-?[a-zа-я0-9]{2}$/i
 
   def initialize(number)
     @number = number
+    validate!
     @speed = 0
     @stat_index = 0
     @carriages = []
@@ -65,5 +69,13 @@ class Train
 
   def previous_station
     @route.stations[@stat_index - 1]
+  end
+
+  private
+
+  def validate!
+    raise 'Количество букв и цифр может быть больше 5 или 6' if @number.length > 6
+    raise 'Неправильный формат номера.Пример: XXXXX ,XXX-XX' if @number !~ CONST_NUMBER
+    true
   end
 end

@@ -27,6 +27,5 @@ class Route
   def validate!
     raise 'Нет имени' if @name == ''
     raise 'Проверьте правильны ли станции' unless (@stations.first.kind_of? Station) && (@stations.last.kind_of? Station)
-    true
   end
 end

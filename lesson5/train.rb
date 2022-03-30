@@ -74,8 +74,7 @@ class Train
   private
 
   def validate!
-    raise 'Количество букв и цифр может быть больше 5 или 6' if @number.length > 6
+    raise 'Количество букв и цифр может быть только 5 или 6' if @number.length > 6
     raise 'Неправильный формат номера.Пример: XXXXX ,XXX-XX' if @number !~ CONST_NUMBER
-    true
   end
 end

@@ -73,6 +73,7 @@ class Interface
       puts 'Для выхода в МЕНЮ нажмиет Enter.'
       number = gets.chomp
       break if number == ''
+      begin
       puts 'Введите номер для поезда'
       name = gets.chomp
       case number.to_i
@@ -81,6 +82,11 @@ class Interface
       when 2
         @trains << CargoTrain.new(name)
       end
+      rescue RuntimeError => e
+        puts e.message
+        retry
+      end
+      puts "Поезд с номером #{name} создан успешно!"
     end
   end
 

@@ -33,6 +33,6 @@ class Station
 
   def validate!
     raise 'Нет имени' if @name == ''
-    raise 'Вы превысили предел размера названия до 15 букв' if @name.size > 15
+    raise 'Вы превысили предел длины названия до 10 букв' if @name.size > 15
   end
 end

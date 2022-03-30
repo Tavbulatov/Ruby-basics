@@ -60,10 +60,15 @@ class Interface
 
   def create_station
     loop do
-      puts 'Введите название станции(для выхода нажмите Enter) :'
-      name = gets.strip.capitalize
-      break if name == ''
-      @stations << Station.new(name)
+      begin
+        puts 'Введите название станции(для выхода нажмите 0) :'
+        name = gets.strip.capitalize
+        break if name == '0'
+        @stations << Station.new(name)
+      rescue RuntimeError => e
+        puts e.message
+        retry
+      end
     end
   end
 
@@ -74,14 +79,14 @@ class Interface
       number = gets.chomp
       break if number == ''
       begin
-      puts 'Введите номер для поезда'
-      name = gets.chomp
-      case number.to_i
-      when 1
-        @trains << PassengerTrain.new(name)
-      when 2
-        @trains << CargoTrain.new(name)
-      end
+        puts 'Введите номер для поезда'
+        name = gets.chomp
+        case number.to_i
+        when 1
+          @trains << PassengerTrain.new(name)
+        when 2
+          @trains << CargoTrain.new(name)
+        end
       rescue RuntimeError => e
         puts e.message
         retry
@@ -101,6 +106,9 @@ class Interface
     station2 = gets.to_i
     @routers << Route.new(name, @stations[station1 - 1], @stations[station2 - 1])
     puts 'Станции успешно добавлены'
+  rescue RuntimeError => e
+    puts e.message
+    retry
   end
 
   def add_station_route

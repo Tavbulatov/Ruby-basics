@@ -202,9 +202,9 @@ class Interface
   def map
     @stations.each do |station|
       puts "Станция: #{station.name}"
-      station.show_train_station do |train|
+      station.each_train do |train|
         puts "Номер поезда:#{train.number} Тип:#{train.type} Количество вагонов:#{train.carriages.size}"
-        train.show_carriages do |carriage|
+        train.each_carriage do |carriage|
           puts "Номер вагона:#{carriage.number} Тип:#{carriage.type} Свободно:#{carriage.free_volume} Занято:#{carriage.volume}"
         end
       end
@@ -214,7 +214,7 @@ class Interface
   def take_place
     @trains.each do |train|
       puts "Номер поезда:#{train.number}"
-      train.show_carriages do |carriage|
+      train.each_carriage do |carriage|
         puts "Номер вагона:#{carriage.number} Тип:#{carriage.type} Свободно:#{carriage.free_volume} Занято:#{carriage.volume}"
       end
     end
@@ -224,11 +224,11 @@ class Interface
     train_klass = train.class == PassengerTrain ? PassengerTrain : CargoTrain
     case train_klass.to_s
     when 'PassengerTrain'
-      train.carriages[number - 1].fill_carriage
+      train.carriages[number - 1].fill
     when 'CargoTrain'
       puts 'Укажите объем для груза'
       volume = gets.to_i
-      train.carriages[number - 1].fill_carriage_cargo(volume)
+      train.carriages[number - 1].fill(volume)
     end
   end
 

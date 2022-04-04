@@ -12,18 +12,6 @@ class Carriage
     validate!
   end
 
-  def fill_carriage
-    @volume += 1 if @total > @volume
-  end
-
-  def fill_carriage_cargo(volume)
-    @volume = volume if @total > volume
-  end
-
-  def volume #занятый объем
-    @volume
-  end
-
   def free_volume#свободный(х) объем(мест)
     @total - @volume
   end

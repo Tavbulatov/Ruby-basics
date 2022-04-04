@@ -56,7 +56,7 @@ class Train
     end
   end
 
-  def show_carriages
+  def each_carriage
     @carriages.each { |carriage| yield(carriage) }
   end
 

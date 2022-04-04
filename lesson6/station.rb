@@ -1,5 +1,5 @@
 class Station
-  attr_reader :train, :name, :stat_index
+  attr_reader :trains, :name, :stat_index
   include InstanceCounter
   include Validate
   @@stations = []
@@ -7,7 +7,7 @@ class Station
   def initialize(name)
     @name = name
     validate!
-    @train = []
+    @trains = []
     @@stations << self
     register_instance
   end
@@ -17,20 +17,20 @@ class Station
   end
 
   def add_train(train)
-    @train << train
+    @trains << train
   end
 
   def list_train
-    @train.each { |train| puts train }
+    @trains.each { |train| puts train }
   end
 
   def send_train(train)
-    @train.delete(train) if @train.include?(train)
+    @trains.delete(train) if @trains.include?(train)
     puts 'Поезд отправился'
   end
 
-  def show_train_station
-    @train.each { |train| yield(train) }
+  def each_train
+    @trains.each { |train| yield(train) }
   end
 
   private

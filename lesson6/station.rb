@@ -1,5 +1,6 @@
 class Station
   attr_reader :trains, :name, :stat_index
+
   include InstanceCounter
   include Validate
   @@stations = []
@@ -29,8 +30,8 @@ class Station
     puts 'Поезд отправился'
   end
 
-  def each_train
-    @trains.each { |train| yield(train) }
+  def each_train(&block)
+    @trains.each(&block)
   end
 
   private

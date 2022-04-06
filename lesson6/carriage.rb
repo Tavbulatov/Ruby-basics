@@ -1,5 +1,6 @@
 class Carriage
   attr_reader :total, :volume, :type, :number
+
   include Manifacturer
   include InstanceCounter
   include Validate
@@ -8,11 +9,11 @@ class Carriage
     @number = register_instance
     @type = type
     @total = total
-    @volume = 0 #примечание:для пасс.класса volume-это объем занятых мест,для груз -объем занятого простран-ва
+    @volume = 0 # примечание:для пасс.класса volume-это объем занятых мест,для груз -объем занятого простран-ва
     validate!
   end
 
-  def free_volume#свободный(х) объем(мест)
+  def free_volume # свободный(х) объем(мест)
     @total - @volume
   end
 

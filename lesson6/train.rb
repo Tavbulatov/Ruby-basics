@@ -1,5 +1,6 @@
 class Train
   attr_reader :carriages, :number, :route, :stat_index, :speed, :type
+
   include Manifacturer
   include InstanceCounter
   include Validate
@@ -28,12 +29,12 @@ class Train
 
   def stop
     @speed = 0
-    puts "Поезд остановлен"
+    puts 'Поезд остановлен'
   end
 
   def route_reception(route)
     @route = route
-    @route.stations.first.add_train(self)#поезд добавляется на первую станцию
+    @route.stations.first.add_train(self) # поезд добавляется на первую станцию
   end
 
   def go_next_station
@@ -56,8 +57,8 @@ class Train
     end
   end
 
-  def each_carriage
-    @carriages.each { |carriage| yield(carriage) }
+  def each_carriage(&block)
+    @carriages.each(&block)
   end
 
   def add_carriage(carriage)
@@ -65,7 +66,7 @@ class Train
   end
 
   def current_station
-    @route.stations[@stat_index]#текущая станция
+    @route.stations[@stat_index] # текущая станция
   end
 
   def next_station

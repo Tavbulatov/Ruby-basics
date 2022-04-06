@@ -68,15 +68,14 @@ class Interface
 
   def create_station
     loop do
-      begin
-        puts 'Введите название станции(для выхода нажмите 0) :'
-        name = gets.strip.capitalize
-        break if name == '0'
-        @stations << Station.new(name)
-      rescue RuntimeError => e
-        puts e.message
-        retry
-      end
+      puts 'Введите название станции(для выхода нажмите 0) :'
+      name = gets.strip.capitalize
+      break if name == '0'
+
+      @stations << Station.new(name)
+    rescue RuntimeError => e
+      puts e.message
+      retry
     end
   end
 
@@ -86,6 +85,7 @@ class Interface
       puts 'Для выхода в МЕНЮ нажмиет 0.'
       number = gets.chomp
       break if number == '0'
+
       begin
         puts 'Введите номер для поезда'
         name = gets.chomp
@@ -120,28 +120,28 @@ class Interface
   end
 
   def add_station_route
-    route = select_route("Выберите номер маршрута в которую хотите добавить станцию :")
-    puts "Укажите станцию которую вы хотите добавить:"
+    route = select_route('Выберите номер маршрута в которую хотите добавить станцию :')
+    puts 'Укажите станцию которую вы хотите добавить:'
     stations_show
-    route.add_station(@stations[gets.to_i- 1])
-    puts "Станиция добавлена"
+    route.add_station(@stations[gets.to_i - 1])
+    puts 'Станиция добавлена'
   end
 
   def delete_station_route
-    route = select_route("Выберите номер маршрута из которой хотите удалить станцию :")
-    puts "Укажите станцию которую вы хотите удалить(кроме первой и последней):"
+    route = select_route('Выберите номер маршрута из которой хотите удалить станцию :')
+    puts 'Укажите станцию которую вы хотите удалить(кроме первой и последней):'
     route.stations.each.with_index(1) { |station, index| puts "#{index} - #{station.name}" }
     route.delete_station(gets.to_i)
-    puts "Станиция удалена"
+    puts 'Станиция удалена'
   end
 
   def go_back_train
-    train = select_train("Выберите номер поезда который поедет Назад.")
+    train = select_train('Выберите номер поезда который поедет Назад.')
     train.go_back_station
   end
 
   def go_next_train
-    train = select_train("Выберите номер поезда который поедет Вперед.")
+    train = select_train('Выберите номер поезда который поедет Вперед.')
     train.go_next_station
   end
 
@@ -168,7 +168,7 @@ class Interface
     puts 'Укажите кол-во мест если (пассажир.вагон) или объем(грузовой вагон)'
     begin
       quantities = gets.to_i
-      carriage_klass = train.class == PassengerTrain ? CarriagePass : CarriageCargo
+      carriage_klass = train.instance_of?(PassengerTrain) ? CarriagePass : CarriageCargo
       total.times do
         train.add_carriage(carriage_klass.new(quantities, carriage_klass.to_s.slice(8..12)))
       end
@@ -184,7 +184,7 @@ class Interface
     @trains[gets.strip.to_i - 1]
   end
 
-  def select_route(message = "Выберите маршрут")
+  def select_route(message = 'Выберите маршрут')
     puts message
     routers_show
     @routers[gets.strip.to_i - 1]
@@ -221,7 +221,7 @@ class Interface
     train = select_train
     puts 'Выберите вагон'
     number = gets.to_i
-    train_klass = train.class == PassengerTrain ? PassengerTrain : CargoTrain
+    train_klass = train.instance_of?(PassengerTrain) ? PassengerTrain : CargoTrain
     case train_klass.to_s
     when 'PassengerTrain'
       train.carriages[number - 1].fill
@@ -237,7 +237,7 @@ class Interface
   end
 
   def routers_show
-    @routers.each.with_index(1) { |route, index | puts "#{index} - #{route.name}" }
+    @routers.each.with_index(1) { |route, index| puts "#{index} - #{route.name}" }
   end
 
   def trains_show

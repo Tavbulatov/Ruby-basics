@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Train
   attr_reader :carriages, :number, :route, :stat_index, :speed, :type
 
@@ -8,7 +6,7 @@ class Train
   include Validate
   @@trains = {}
 
-  CONST_NUMBER = /^[a-zа-я0-9]{3}-?[a-zа-я0-9]{2}$/i.freeze
+  CONST_NUMBER = /^[a-zа-я0-9]{3}-?[a-zа-я0-9]{2}$/i
 
   def initialize(number, type)
     @number = number

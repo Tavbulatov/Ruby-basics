@@ -1,0 +1,21 @@
+AllCops:
+    NewCops: enable
+
+Style/Documentation:
+  Enabled: false
+Metrics/MethodLength:
+  Max: 20
+Layout/LineLength:
+  Max: 150
+Metrics/AbcSize:
+  Enabled: false
+Metrics/MethodLength:
+  Max: 50
+Metrics/ClassLength:
+  Max: 250
+Style/ClassVars:
+    Enabled: false
+Metrics/CyclomaticComplexity:
+  Max: 20
+Metrics/BlockLength:
+  Max: 50

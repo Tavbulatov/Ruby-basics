@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Interface
   attr_reader :stations, :trains, :routers
 
@@ -16,7 +14,7 @@ class Interface
 
   def menu
     loop do
-      menu = "
+      text = "
       Введите 1 :Создать станцию,
       Введите 2 :Создать поезд,
       Введите 3 :Создать маршрут,
@@ -31,7 +29,7 @@ class Interface
       Введите 12:Для выхода из МЕНЮ,
       Введите 13:Для выхода из программы.\n".split(',')
 
-      menu.each { |text| print text }
+      text.each { |text| print text }
 
       print '      =========  Введите число :'
 

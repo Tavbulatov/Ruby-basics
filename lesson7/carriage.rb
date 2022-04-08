@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Carriage
   attr_reader :total, :volume, :type, :number
 
@@ -15,14 +13,13 @@ class Carriage
     validate!
   end
 
-  # свободный(х) объем(мест)
-  def free_volume
+  def free_volume # свободный(х) объем(мест)
     @total - @volume
   end
 
   private
 
   def validate!
-    raise 'Вы не указали количество мест' if @total.zero?
+    raise 'Вы не указали количество мест' if @total == 0
   end
 end

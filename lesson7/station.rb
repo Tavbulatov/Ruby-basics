@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Station
   attr_reader :trains, :name, :stat_index
 
@@ -16,7 +14,7 @@ class Station
   end
 
   def self.all
-    @@stations
+    @@station
   end
 
   def add_train(train)

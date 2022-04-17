@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CarriagePass < Carriage
   attr_reader :total, :volume
 

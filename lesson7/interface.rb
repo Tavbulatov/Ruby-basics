@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Interface
   attr_reader :stations, :trains, :routers
 
@@ -8,28 +10,13 @@ class Interface
     @stations << Station.new('Panfilovskaya')
     @stations << Station.new('Kutuzovskaya')
     @routers << Route.new('Dnepr', @stations[0], @stations[1])
-    @trains << PassengerTrain.new('Tuzik', :passenger)
-    @trains << CargoTrain.new('Golub', :cargo)
+    # @trains << PassengerTrain.new('Tuzik', :passenger)
+    # @trains << CargoTrain.new('Golub', :cargo)
   end
 
   def menu
     loop do
-      text = "
-      Введите 1 :Создать станцию,
-      Введите 2 :Создать поезд,
-      Введите 3 :Создать маршрут,
-      Введите 4 :Добавить станцию в маршрут
-      Введите 5 :Удалить станцию из маршрута,
-      Введите 6 :Назначить маршрут поезду,
-      Введите 7 :Добавить вагон к поезду,
-      Введите 8 :Отцепить вагон от поезда,
-      Введите 9 :Переместить поезд по маршруту вперед и назад,
-      Введите 10:Просмотреть список станций, список поездов на станции и вагоны поездов,
-      Введите 11:Занять место
-      Введите 12:Для выхода из МЕНЮ,
-      Введите 13:Для выхода из программы.\n".split(',')
-
-      text.each { |text| print text }
+      puts File.read('menu.txt')
 
       print '      =========  Введите число :'
 

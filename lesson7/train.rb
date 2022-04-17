@@ -1,12 +1,23 @@
-class Train
-  attr_reader :carriages, :number, :route, :stat_index, :speed, :type
+# frozen_string_literal: true
 
+class Train
+  include Acсessors
   include Manifacturer
   include InstanceCounter
-  include Validate
-  @@trains = {}
+  include Validation
 
-  CONST_NUMBER = /^[a-zа-я0-9]{3}-?[a-zа-я0-9]{2}$/i
+  CONST_NUMBER = /^[a-zа-я0-9]{3}-?[a-zа-я0-9]{2}$/i.freeze
+
+  attr_reader :carriages, :number, :route, :stat_index, :speed, :type
+
+  attr_accessor_with_history :number
+  strong_attr_accessor :type, String
+
+  validate :number, :presence
+  validate :number, :format, CONST_NUMBER
+  validate :number, :type, String
+
+  @@trains = {}
 
   def initialize(number, type)
     @number = number
@@ -75,12 +86,5 @@ class Train
 
   def previous_station
     @route.stations[@stat_index - 1]
-  end
-
-  private
-
-  def validate!
-    raise 'Количество букв и цифр может быть только 5 или 6' if @number.length > 6
-    raise 'Неправильный формат номера.Пример: XXXXX ,XXX-XX' if @number !~ CONST_NUMBER
   end
 end

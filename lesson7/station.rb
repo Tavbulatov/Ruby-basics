@@ -1,8 +1,15 @@
+# frozen_string_literal: true
+
 class Station
   attr_reader :trains, :name, :stat_index
 
   include InstanceCounter
-  include Validate
+  include Validation
+
+  validate :name, :presence
+  validate :name, :format, /^[a-zA-Z]{3,}\w$/
+  validate :name, :type, String
+
   @@stations = []
 
   def initialize(name)
@@ -32,12 +39,5 @@ class Station
 
   def each_train(&block)
     @trains.each(&block)
-  end
-
-  private
-
-  def validate!
-    raise 'Нет имени' if @name == ''
-    raise 'Вы превысили предел длины названия до 10 букв' if @name.size > 15
   end
 end

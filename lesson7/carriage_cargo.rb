@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CarriageCargo < Carriage
   attr_reader :total, :volume
 

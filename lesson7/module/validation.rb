@@ -44,7 +44,7 @@ module Validation
 
     # Осма это исключение в любом случае выбрасывает, не понял почему
     def valid_type(value, attribute_class)
-      #raise 'Объект не соответствует классу' unless attribute_class.class == value
+      # raise 'Объект не соответствует классу' unless attribute_class.class == value
     end
   end
 end

@@ -14,12 +14,12 @@ module Acсessors
         define_method(name) { instance_variable_get(var_name) }
         define_method("#{name}_history") { instance_variable_get(args_history) }
         define_method("#{name}=".to_sym) do |name|
-          instance_variable_set(var_name, name)
           if instance_variable_get(args_history).nil?
             instance_variable_set(args_history, [])
           else
             instance_variable_get(args_history) << instance_variable_get(var_name)
           end
+          instance_variable_set(var_name, name)
         end
       end
     end

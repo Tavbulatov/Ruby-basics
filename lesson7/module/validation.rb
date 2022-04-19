@@ -23,7 +23,7 @@ module Validation
     def validate!
       self.class.validations.each do |validation|
         var_name = instance_variable_get("@#{validation[:name]}")
-        send("valid_#{validation[:type]}", var_name, *validation[:args])
+        send("validate_#{validation[:type]}", var_name, *validation[:args])
       end
     end
 

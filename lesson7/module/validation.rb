@@ -43,7 +43,7 @@ module Validation
     end
 
     def validate_type(value, attribute_class)
-      raise 'Объект не соответствует классу' unless value == attribute_class.class
+      raise 'Объект не соответствует классу' unless value.class == attribute_class
     end
   end
 end
